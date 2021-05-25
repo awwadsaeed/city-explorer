@@ -14,6 +14,7 @@ class App extends React.Component {
       show: false,
       display: false,
       weatherArr: [],
+      rend:false,
     }
   }
 
@@ -27,7 +28,7 @@ class App extends React.Component {
   setWeatherArr = (weatherData, showing) => {
     this.setState({
       weatherArr: weatherData,
-      display: showing
+      rend: showing
     })
     // console.log(this.state.weatherArr);
   }
@@ -40,7 +41,7 @@ class App extends React.Component {
           <InfoCard data={this.state.dataInfo} display={this.state.display} />
         }
 
-        {this.state.weatherArr.length!==0 && <WeatherCard display={this.state.display} weatherData={this.state.weatherArr} />}
+        {this.state.show===true && <WeatherCard display={this.state.rend} weatherData={this.state.weatherArr} />}
       </>
     )
   }
