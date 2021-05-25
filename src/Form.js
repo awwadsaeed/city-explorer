@@ -1,15 +1,17 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-// import dotenv from 'dotenv';
 import axios from 'axios';
+
 let serverRoute = process.env.REACT_APP_SERVER;
+
 
 class FormInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             searchInput: '',
+            locationResult:'',
         }
     }
 
@@ -20,25 +22,27 @@ class FormInfo extends React.Component {
             searchInput: searchRequest,
         })
     }
- 
     getData = async (e) => {
         e.preventDefault();
         let reqUrl = `https://eu1.locationiq.com/v1/search.php?key=pk.b63c5ecf5d90031a016f3169a46a0e31&q=${this.state.searchInput}&format=json`;
         try{
+            // console.log(serverRoute);
         let result = await axios.get(reqUrl);
         // console.log(result.data[0].display_name);
-        this.props.setData(result.data[0],true);
+        this.setState({
+        locationResult:result.data[0],
+        })
+        this.props.setData(this.state.locationResult,true);
         }catch(error){
            this.props.setData(error,false);
         }
-        console.log(serverRoute);
         try{
-            let weatherData = await axios.get(`http://localhost:3001/weather?searchQuery=amman&long=35.9239625&lat=31.9515694`);
+            let weatherData = await axios.get(`${serverRoute}/weather?searchQuery=${this.state.searchInput}&long=${this.state.locationResult.lon}&lat=${this.state.locationResult.lat}`);
             this.props.setWeather(weatherData.data,true);
-            // console.log(weatherData.data);
-            
+            console.log(serverRoute);
         }catch(e){
-            this.props.setWeather([],false);
+            console.log(e.response);
+            this.props.setWeather(e.response,false);
         }
     }
     render() {
