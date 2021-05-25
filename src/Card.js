@@ -12,7 +12,7 @@ class InfoCard extends React.Component {
                         <Card.Title>{this.props.data.display_name.split(',')[0]}, {this.props.data.display_name.split(',')[2]}</Card.Title>
                         <Card.Text>
                             latitude:   {this.props.data.lat}.<br />
-                            longitude: {this.props.data.lon}.
+                            longitude: {this.props.data.lon}.<br/>
                         </Card.Text>
                     </Card.Body>
                 </Card>}
