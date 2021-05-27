@@ -44,11 +44,15 @@ class FormInfo extends React.Component {
             console.log(e.response);
             this.props.setWeather(e.response,false);
         }
+        try{
         let movieUrl = (`${serverRoute}/movie?searchQuery=${this.state.searchInput}`);
         console.log(serverRoute);
-        axios.get(movieUrl).then(movie=>{
-           this.props.setMovie(movie.data,true);
-        })
+        let movie = await axios.get(movieUrl);
+        this.props.setMovie(movie.data,true)
+        }catch(e){
+        this.props.setMovie(e,false);
+        console.log(e.response.data);
+        }
     }
     render() {
         return (

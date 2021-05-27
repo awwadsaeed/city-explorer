@@ -1,10 +1,10 @@
-import './App.css';
 import React from 'react';
 import FormInfo from './Form.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import InfoCard from './Card';
 import WeatherCard from './Weather';
 import MovieCard from './movies';
+import './App.css';
 
 
 class App extends React.Component {
@@ -40,7 +40,7 @@ class App extends React.Component {
       movieArr: mov,
       disp:dis,
     })
-    console.log(this.state.movieArr);
+    // console.log(this.state.movieArr);
   }
 
   render() {
